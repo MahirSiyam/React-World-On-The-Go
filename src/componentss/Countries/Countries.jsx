@@ -5,13 +5,18 @@ import "./Countries.css"
 const Countries = ({countriesProrise}) => {
 
     const Countires = use(countriesProrise);
-    // console.log(Countires);
 
     const [visitedCountries , setVisitedCountries] = useState([]);
+    const [visitedFlags , setVisitedFlags] = useState([]);
 
     const handleVisitedCountries = (country) => {
         const newVisitedCountries = [...visitedCountries , country];
         setVisitedCountries(newVisitedCountries);
+    }
+
+    const handleVisitedFlags = (flags) => {
+        const newVisitedFlags = [...visitedFlags , flags];
+        setVisitedFlags(newVisitedFlags);
     }
 
     return (
@@ -21,14 +26,22 @@ const Countries = ({countriesProrise}) => {
 
             <ol>
                 {
-                    visitedCountries.map(country => <li>{country.name.common}</li>)
+                    visitedCountries.map(country => <li key={country.cca3}>{country.name.common}</li>)
                 }
             </ol>
+
+            <div className='visited-flags-container'>
+                {
+                    visitedFlags.map((flag , index) => <img key={index} src={flag}></img>)
+                }
+            </div>
 
             <div className='countries'>
             {
                 Countires.map(country => <Country key={country.cca3} 
-                    country = {country} handleVisitedCountries = {handleVisitedCountries}></Country>)
+                    country = {country} 
+                    handleVisitedCountries = {handleVisitedCountries}
+                    handleVisitedFlags = {handleVisitedFlags}></Country>)
             }
             </div>
         </div>
